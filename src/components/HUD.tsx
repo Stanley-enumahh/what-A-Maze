@@ -10,6 +10,8 @@ interface Props {
 export function HUD({ orientation, levelIndex, totalLevels }: Props) {
   const fontFamily = "'JetBrains Mono', monospace";
 
+  const isMobile = window.innerWidth <= 768;
+
   return (
     <div
       style={{
@@ -35,7 +37,8 @@ export function HUD({ orientation, levelIndex, totalLevels }: Props) {
         facing <span style={{ color: "#e8a33d" }}>{orientation}</span>
       </div>
       <div style={{ fontSize: 11, opacity: 0.35, marginTop: 14 }}>
-        W-A-S-D move &nbsp; Q/E rotate
+        {!isMobile && "W-A-S-D move &nbsp; Q/E rotate"}
+        {isMobile && "Arrows to move and rotate"}
       </div>
     </div>
   );
