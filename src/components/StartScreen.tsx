@@ -3,9 +3,10 @@ import { useEffect } from "react";
 interface Props {
   onStart: () => void;
   onRules: () => void;
+  onLeaderboard: () => void;
 }
 
-export function StartScreen({ onStart, onRules }: Props) {
+export function StartScreen({ onStart, onRules, onLeaderboard }: Props) {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Enter" || e.key === " ") {
@@ -181,6 +182,24 @@ export function StartScreen({ onStart, onRules }: Props) {
             }}
           >
             HOW TO PLAY
+          </button>
+
+          <button
+            onClick={onLeaderboard}
+            style={{
+              width: "100%",
+              height: 52,
+              border: "1px solid rgba(85,230,255,0.2)",
+              borderRadius: 10,
+              background: "rgba(85,230,255,0.04)",
+              color: "#55e6ff",
+              fontSize: 14,
+              fontWeight: 700,
+              letterSpacing: 1,
+              cursor: "pointer",
+            }}
+          >
+            LEADERBOARD
           </button>
         </div>
 
