@@ -30,17 +30,17 @@ function formatTime(milliseconds: number) {
     .padStart(2, "0")}`;
 }
 
-function isPersonalBest(
-  entries: LeaderboardEntry[],
-  playerName: string,
-  completionTime: number,
-) {
-  return entries.some(
-    (entry) =>
-      entry.player_name.toLowerCase() === playerName.toLowerCase() &&
-      entry.completion_time === completionTime,
-  );
-}
+// function isPersonalBest(
+//   entries: LeaderboardEntry[],
+//   playerName: string,
+//   completionTime: number,
+// ) {
+//   return entries.some(
+//     (entry) =>
+//       entry.player_name.toLowerCase() === playerName.toLowerCase() &&
+//       entry.completion_time === completionTime,
+//   );
+// }
 
 export function WinScreen({
   totalLevels,
