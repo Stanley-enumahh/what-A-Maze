@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import { Leaderboard } from "./Leaderboard";
-import { type LeaderboardEntry, useLeaderboard } from "../hooks/useLeaderboard";
+import { useLeaderboard } from "../hooks/useLeaderboard";
 
 interface Props {
   totalLevels: number;
