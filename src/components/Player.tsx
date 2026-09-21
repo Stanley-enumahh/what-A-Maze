@@ -15,6 +15,51 @@ export function Player({ position, falling }: Props) {
   const initialized = useRef(false);
   const prevPosition = useRef<GridCell>(position);
   const facingAngle = useRef(0);
+  const hopProgress = useRef(1); // 1 = idle/settled, 0 = start of a new hop
+
+  useEffect(() => {
+    if (groupRef.current && !initialized.current) {
+      groupRef.current.position.set(position.x, position.y + 0.32, position.z);
+      initialized.current = true;
+    }
+
+    const dx = position.x - prevPosition.current.x;
+    const dz = position.z - prevPosition.current.z;
+    if (dx !== 0 || dz !== 0) {
+      facingAngle.current = Math.atan2(dx, dz);
+      hopProgress.current = 0; // kick off a new hop on every grid move
+    }
+    prevPosition.current = position;
+  }, [position]);
+
+  useFrame((_, delta) => {
+    if (!groupRef.current) return;
+    if (falling) {
+      groupRef.current.position.y -= 0.13;
+      groupRef.current.rotation.x += 0.05;
+      return;
+    }
+
+    const target = new THREE.Vector3(position.x, position.y + 0.32, position.z);
+    groupRef.current.position.lerp(target, 0.25);
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      0,
+      0.2,
+    );
+
+    let diff = facingAngle.current - groupRef.current.rotation.y;
+    diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+    groupRef.current.rotation.y += diff * 0.25;
+
+    // Hop: rises and falls over the course of one step, added on top of
+    // the lerped base height so it reads as a bounce, not a float.
+    if (hopProgress.current < 1) {
+      hopProgress.current = Math.min(hopProgress.current + delta * 5, 1);
+      const hopHeight = Math.sin(hopProgress.current * Math.PI) * 0.12;
+      groupRef.current.position.y += hopHeight;
+    }
+  });
 
   useEffect(() => {
     if (groupRef.current && !initialized.current) {
