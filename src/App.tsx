@@ -202,7 +202,7 @@ export default function App() {
   return (
     <div className="game-container">
       <Canvas>
-        <fog attach="fog" args={["#1a1a2e", 15, 45]} />
+        <fog attach="fog" args={["#1a1a2e", distance * 1, distance * 7]} />
 
         <ambientLight intensity={0.6} />
 
@@ -218,7 +218,7 @@ export default function App() {
           speed={0.5}
         />
 
-        <GroundPlane center={center} />
+        <GroundPlane center={center} size={distance * 2.5} />
 
         <SnapCameraRig angle={angle} center={center} distance={distance} />
 
@@ -235,7 +235,7 @@ export default function App() {
         totalLevels={levels.length}
       />
 
-      <MobileControls onMove={move} onRotate={rotate} />
+      {!solved && <MobileControls onMove={move} onRotate={rotate} />}
 
       {falling && <div className="fall-message">You Fell</div>}
 
@@ -253,6 +253,7 @@ export default function App() {
           completionTime={completionTime}
           onPlayAgain={handleRestart}
           onMainMenu={() => setScreen("start")}
+          onViewLeaderboard={() => setScreen("leaderboard")}
         />
       )}
     </div>

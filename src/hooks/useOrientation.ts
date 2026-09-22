@@ -28,6 +28,9 @@ export function useOrientation() {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.repeat) return;
 
+      const target = e.target as HTMLElement;
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
+
       if (e.key === "q" || e.key === "e") {
         rotate(e.key);
       }

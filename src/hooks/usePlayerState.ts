@@ -84,6 +84,9 @@ export function usePlayerState(
     function handleKeyDown(e: KeyboardEvent) {
       if (e.repeat) return;
 
+      const target = e.target as HTMLElement;
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
+
       if (e.key === "w" || e.key === "a" || e.key === "s" || e.key === "d") {
         move(e.key);
       }

@@ -83,10 +83,10 @@ export const levels: Level[] = [
       { x: 1, y: 0, z: 0 },
       { x: 2, y: 0, z: 0 },
       { x: 4, y: 0, z: 0 },
-      { x: 5, y: 0, z: 0 }, // dead-end branch
+      { x: 5, y: 0, z: 0 },
       { x: 3, y: 0, z: 1 },
       { x: 3, y: 0, z: 2 },
-      { x: 3, y: 0, z: 3 }, // real path
+      { x: 3, y: 0, z: 3 },
     ],
     bridgeCells: [{ x: 3, y: 0, z: 0, activeIn: ["north"] }],
     start: { x: 0, y: 0, z: 0 },
@@ -112,7 +112,6 @@ export const levels: Level[] = [
     start: { x: 0, y: 0, z: 0 },
     exit: { x: 6, y: 0, z: 0 },
   },
-
   {
     id: "07-long-span",
     coreCells: [
@@ -141,17 +140,17 @@ export const levels: Level[] = [
     coreCells: [
       { x: 0, y: 0, z: 0 },
       { x: 1, y: 0, z: 0 },
-      { x: 3, y: 0, z: 0 }, // single-tile island
-      { x: 5, y: 0, z: 0 }, // decoy dead end
+      { x: 3, y: 0, z: 0 },
+      { x: 5, y: 0, z: 0 },
       { x: 6, y: 0, z: 0 },
-      { x: 3, y: 0, z: 2 }, // single-tile island
+      { x: 3, y: 0, z: 2 },
       { x: 5, y: 0, z: 2 },
       { x: 5, y: 0, z: 3 },
       { x: 5, y: 0, z: 4 },
     ],
     bridgeCells: [
       { x: 2, y: 0, z: 0, activeIn: ["east"] },
-      { x: 4, y: 0, z: 0, activeIn: ["west"] }, // decoy
+      { x: 4, y: 0, z: 0, activeIn: ["west"] },
       { x: 3, y: 0, z: 1, activeIn: ["south"] },
       { x: 4, y: 0, z: 2, activeIn: ["north"] },
     ],
@@ -168,7 +167,6 @@ export const levels: Level[] = [
       { x: 5, y: 0, z: 3 },
       { x: 5, y: 0, z: 1 },
       { x: 5, y: 0, z: 0 },
-      // decoy dead ends
       { x: 1, y: 0, z: 2 },
       { x: 1, y: 0, z: 3 },
       { x: 3, y: 0, z: 5 },
@@ -182,7 +180,6 @@ export const levels: Level[] = [
       { x: 3, y: 0, z: 2, activeIn: ["south"] },
       { x: 4, y: 0, z: 3, activeIn: ["west"] },
       { x: 5, y: 0, z: 2, activeIn: ["north"] },
-      // decoys
       { x: 1, y: 0, z: 1, activeIn: ["north"] },
       { x: 3, y: 0, z: 4, activeIn: ["east"] },
       { x: 6, y: 0, z: 3, activeIn: ["south"] },
@@ -190,21 +187,19 @@ export const levels: Level[] = [
     start: { x: 0, y: 0, z: 0 },
     exit: { x: 5, y: 0, z: 0 },
   },
-
   {
     id: "10-labyrinth",
     coreCells: [
       { x: 0, y: 0, z: 0 },
       { x: 1, y: 0, z: 0 },
-      { x: 3, y: 0, z: 0 }, // island
-      { x: 3, y: 0, z: 3 }, // island
-      { x: 5, y: 0, z: 3 }, // island
-      { x: 5, y: 0, z: 0 }, // island
-      { x: 8, y: 0, z: 0 }, // island
-      { x: 8, y: 0, z: 3 }, // island
-      { x: 8, y: 0, z: 5 }, // island
+      { x: 3, y: 0, z: 0 },
+      { x: 3, y: 0, z: 3 },
+      { x: 5, y: 0, z: 3 },
+      { x: 5, y: 0, z: 0 },
+      { x: 8, y: 0, z: 0 },
+      { x: 8, y: 0, z: 3 },
+      { x: 8, y: 0, z: 5 },
       { x: 6, y: 0, z: 5 },
-      // decoy dead ends
       { x: 1, y: 0, z: 2 },
       { x: 2, y: 0, z: 2 },
       { x: 3, y: 0, z: 5 },
@@ -223,11 +218,134 @@ export const levels: Level[] = [
       { x: 8, y: 0, z: 2, activeIn: ["south"] },
       { x: 8, y: 0, z: 4, activeIn: ["east"] },
       { x: 7, y: 0, z: 5, activeIn: ["west"] },
-      // decoys
       { x: 1, y: 0, z: 1, activeIn: ["north"] },
       { x: 3, y: 0, z: 4, activeIn: ["east"] },
     ],
     start: { x: 0, y: 0, z: 0 },
     exit: { x: 6, y: 0, z: 5 },
+  },
+  {
+    id: "11-crossroads",
+    coreCells: [
+      { x: 0, y: 0, z: 0 },
+      { x: 1, y: 0, z: 0 },
+      { x: 2, y: 0, z: 0 },
+      { x: 4, y: 0, z: 0 },
+      { x: 4, y: 0, z: 1 },
+      { x: 4, y: 0, z: 2 },
+      { x: 6, y: 0, z: 2 },
+      { x: 7, y: 0, z: 2 },
+      { x: 2, y: 0, z: 2 },
+      { x: 2, y: 0, z: 3 },
+      { x: 4, y: 0, z: 4 },
+      { x: 2, y: 0, z: 4 },
+      { x: 1, y: 0, z: 4 },
+      { x: 0, y: 0, z: 4 },
+    ],
+    bridgeCells: [
+      { x: 3, y: 0, z: 0, activeIn: ["east"] },
+      { x: 2, y: 0, z: 1, activeIn: ["south"] },
+      { x: 5, y: 0, z: 2, activeIn: ["east"] },
+      { x: 4, y: 0, z: 3, activeIn: ["south"] },
+      { x: 3, y: 0, z: 4, activeIn: ["west"] },
+    ],
+    start: { x: 0, y: 0, z: 0 },
+    exit: { x: 0, y: 0, z: 4 },
+  },
+  {
+    id: "12-loop",
+    coreCells: [
+      { x: 0, y: 0, z: 0 },
+      { x: 1, y: 0, z: 0 },
+      { x: 2, y: 0, z: 0 },
+      { x: 4, y: 0, z: 0 },
+      { x: 4, y: 0, z: 1 },
+      { x: 6, y: 0, z: 1 }, // decoy dead end
+      { x: 7, y: 0, z: 1 },
+      { x: 4, y: 0, z: 3 },
+      { x: 2, y: 0, z: 3 }, // decoy dead end (backtrack lure)
+      { x: 1, y: 0, z: 3 },
+      { x: 4, y: 0, z: 5 },
+      { x: 5, y: 0, z: 5 },
+      { x: 7, y: 0, z: 5 }, // decoy dead end
+      { x: 8, y: 0, z: 5 },
+      { x: 5, y: 0, z: 7 },
+      { x: 5, y: 0, z: 8 },
+      { x: 3, y: 0, z: 7 },
+      { x: 2, y: 0, z: 7 },
+      { x: 1, y: 0, z: 7 },
+      { x: 1, y: 0, z: 5 },
+      { x: 1, y: 0, z: 4 },
+    ],
+    bridgeCells: [
+      { x: 3, y: 0, z: 0, activeIn: ["east"] },
+      { x: 5, y: 0, z: 1, activeIn: ["east"] }, // decoy — dead end
+      { x: 4, y: 0, z: 2, activeIn: ["south"] },
+      { x: 3, y: 0, z: 3, activeIn: ["west"] }, // decoy — dead end
+      { x: 4, y: 0, z: 4, activeIn: ["south"] },
+      { x: 6, y: 0, z: 5, activeIn: ["east"] }, // decoy — dead end
+      { x: 5, y: 0, z: 6, activeIn: ["south"] },
+      { x: 4, y: 0, z: 7, activeIn: ["west"] },
+      { x: 1, y: 0, z: 6, activeIn: ["north"] },
+      { x: 1, y: 0, z: 2, activeIn: ["north"] },
+    ],
+    start: { x: 0, y: 0, z: 0 },
+    exit: { x: 1, y: 0, z: 2 },
+  },
+  {
+    id: "13-finale",
+    coreCells: [
+      { x: 0, y: 0, z: 0 },
+      { x: 1, y: 0, z: 0 },
+      { x: 2, y: 0, z: 0 },
+      { x: 4, y: 0, z: 0 },
+      { x: 4, y: 0, z: 1 },
+      { x: 4, y: 0, z: 2 },
+      { x: 4, y: 0, z: 3 },
+      { x: 6, y: 0, z: 1 },
+      { x: 7, y: 0, z: 1 },
+      { x: 4, y: 0, z: 5 },
+      { x: 5, y: 0, z: 5 },
+      { x: 6, y: 0, z: 5 },
+      { x: 5, y: 0, z: 7 },
+      { x: 5, y: 0, z: 8 },
+      { x: 8, y: 0, z: 5 },
+      { x: 8, y: 0, z: 6 },
+      { x: 8, y: 0, z: 7 },
+      { x: 7, y: 0, z: 7 },
+      { x: 7, y: 0, z: 6 },
+      { x: 8, y: 0, z: 9 },
+      { x: 7, y: 0, z: 9 },
+      { x: 6, y: 0, z: 9 },
+      { x: 4, y: 0, z: 9 },
+      { x: 4, y: 0, z: 8 },
+      { x: 4, y: 0, z: 7 },
+      { x: 3, y: 0, z: 7 },
+      { x: 2, y: 0, z: 7 },
+      { x: 1, y: 0, z: 7 },
+      { x: 2, y: 0, z: 5 },
+      { x: 2, y: 0, z: 4 },
+      { x: -1, y: 0, z: 7 },
+      { x: -1, y: 0, z: 6 },
+      { x: -1, y: 0, z: 5 },
+      { x: -1, y: 0, z: 3 },
+      { x: -1, y: 0, z: 2 },
+      { x: -1, y: 0, z: 1 },
+    ],
+    bridgeCells: [
+      { x: 3, y: 0, z: 0, activeIn: ["east"] },
+      { x: 5, y: 0, z: 1, activeIn: ["east"] },
+      { x: 4, y: 0, z: 4, activeIn: ["south"] },
+      { x: 5, y: 0, z: 6, activeIn: ["south"] },
+      { x: 7, y: 0, z: 5, activeIn: ["east"] },
+      { x: 7, y: 0, z: 8, activeIn: ["north"] },
+      { x: 8, y: 0, z: 8, activeIn: ["south"] },
+      { x: 5, y: 0, z: 9, activeIn: ["west"] },
+      { x: 2, y: 0, z: 6, activeIn: ["north"] },
+      { x: 0, y: 0, z: 7, activeIn: ["west"] },
+      { x: -1, y: 0, z: 4, activeIn: ["north"] },
+    ],
+    start: { x: 0, y: 0, z: 0 },
+    exit: { x: -1, y: 0, z: 1 },
   },
 ];

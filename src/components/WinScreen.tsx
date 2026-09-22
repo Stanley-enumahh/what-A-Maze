@@ -1,5 +1,4 @@
-import { useState, type CSSProperties } from "react";
-import { Leaderboard } from "./Leaderboard";
+import { useState, useEffect, type CSSProperties } from "react";
 import { useLeaderboard } from "../hooks/useLeaderboard";
 
 interface Props {
@@ -7,6 +6,7 @@ interface Props {
   completionTime: number;
   onPlayAgain: () => void;
   onMainMenu: () => void;
+  onViewLeaderboard: () => void;
 }
 
 const buttonStyle: CSSProperties = {
@@ -21,62 +21,49 @@ const buttonStyle: CSSProperties = {
 
 function formatTime(milliseconds: number) {
   const totalSeconds = Math.floor(milliseconds / 1000);
-
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-
-  return `${minutes.toString().padStart(2, "0")}:${seconds
-    .toString()
-    .padStart(2, "0")}`;
+  return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 }
-
-// function isPersonalBest(
-//   entries: LeaderboardEntry[],
-//   playerName: string,
-//   completionTime: number,
-// ) {
-//   return entries.some(
-//     (entry) =>
-//       entry.player_name.toLowerCase() === playerName.toLowerCase() &&
-//       entry.completion_time === completionTime,
-//   );
-// }
 
 export function WinScreen({
   totalLevels,
   completionTime,
   onPlayAgain,
   onMainMenu,
+  onViewLeaderboard,
 }: Props) {
   const [playerName, setPlayerName] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const { entries, loading, submitting, error, submitScore } = useLeaderboard();
+  // Briefly ignore input right after mount — on mobile, the win screen can
+  // appear mid-tap (the button you were pressing gets swapped out under
+  // your finger), and a trailing touch event can land on whatever's now
+  // at those same coordinates. This closes that window.
+  const [armed, setArmed] = useState(false);
+  useEffect(() => {
+    const timeout = setTimeout(() => setArmed(true), 400);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const { submitting, error, submitScore } = useLeaderboard();
 
   async function handleSubmit() {
     const name = playerName.trim();
-
-    if (name.length < 2 || name.length > 20) {
-      return;
-    }
-
+    if (name.length < 2 || name.length > 20) return;
     const success = await submitScore(name, completionTime, totalLevels);
-
-    if (success) {
-      setSubmitted(true);
-    }
+    if (success) setSubmitted(true);
   }
 
   return (
-    <div className="win-screen">
+    <div
+      className="win-screen"
+      style={{ pointerEvents: armed ? "auto" : "none" }}
+    >
       <div className="win-screen-grid" />
       <div className="win-screen-glow" />
 
       <div className="win-screen-card">
-        <div className="win-screen-icon">✓</div>
-
-        <div className="win-screen-label">What A Maze</div>
-
         <h1 className="win-screen-title">You Made It.</h1>
 
         <p className="win-screen-message">
@@ -86,13 +73,11 @@ export function WinScreen({
         <div className="win-screen-stats">
           <div className="win-stat">
             <div className="win-stat-value">{totalLevels}</div>
-
             <div className="win-stat-label">Levels</div>
           </div>
 
           <div className="win-stat">
             <div className="win-stat-value">{formatTime(completionTime)}</div>
-
             <div className="win-stat-label">Time</div>
           </div>
         </div>
@@ -107,9 +92,7 @@ export function WinScreen({
                 value={playerName}
                 onChange={(event) => setPlayerName(event.target.value)}
                 onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    handleSubmit();
-                  }
+                  if (event.key === "Enter") handleSubmit();
                 }}
                 maxLength={20}
                 placeholder="Your name"
@@ -139,8 +122,6 @@ export function WinScreen({
           <div className="score-submitted">SCORE SUBMITTED ✓</div>
         )}
 
-        <Leaderboard entries={entries} loading={loading} />
-
         <div className="win-screen-actions">
           <button
             type="button"
@@ -157,6 +138,19 @@ export function WinScreen({
 
           <button
             type="button"
+            onClick={onViewLeaderboard}
+            style={{
+              ...buttonStyle,
+              border: "1px solid rgba(85,230,255,0.4)",
+              background: "rgba(85,230,255,0.08)",
+              color: "#55e6ff",
+            }}
+          >
+            LEADERBOARD
+          </button>
+
+          <button
+            type="button"
             onClick={onMainMenu}
             style={{
               ...buttonStyle,
@@ -168,8 +162,6 @@ export function WinScreen({
             MAIN MENU
           </button>
         </div>
-
-        <div className="win-screen-footer">THANKS FOR PLAYING</div>
       </div>
     </div>
   );

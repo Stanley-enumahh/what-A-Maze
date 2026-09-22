@@ -1,7 +1,16 @@
+import type { CSSProperties, ReactNode } from "react";
+
 interface Props {
   onBack: () => void;
   onStart: () => void;
 }
+
+const cardStyle: CSSProperties = {
+  padding: 28,
+  borderRadius: 14,
+  border: "1px solid rgba(255,255,255,0.1)",
+  background: "rgba(255,255,255,0.03)",
+};
 
 export function RulesScreen({ onBack, onStart }: Props) {
   return (
@@ -11,17 +20,16 @@ export function RulesScreen({ onBack, onStart }: Props) {
         inset: 0,
         overflowY: "auto",
         color: "white",
-        fontFamily: "sans-serif",
-        background:
-          "radial-gradient(circle at 50% 20%, #20204a 0%, #111122 45%, #080812 100%)",
+        fontFamily: "'JetBrains Mono', monospace",
+        background: "#080812",
       }}
     >
       <div
         style={{
           width: "100%",
-          maxWidth: 720,
+          maxWidth: 640,
           margin: "0 auto",
-          padding: "40px 24px",
+          padding: "40px 24px 60px",
           boxSizing: "border-box",
         }}
       >
@@ -30,22 +38,36 @@ export function RulesScreen({ onBack, onStart }: Props) {
           style={{
             border: "none",
             background: "none",
-            color: "rgba(255,255,255,0.5)",
+            color: "rgba(255,255,255,0.4)",
             cursor: "pointer",
-            fontSize: 13,
+            fontFamily: "inherit",
+            fontSize: 12,
+            fontWeight: 700,
+            letterSpacing: 1,
             padding: 0,
           }}
         >
-          ← BACK
+          ← Back
         </button>
 
-        <div style={{ marginTop: 50 }}>
+        <div style={{ marginTop: 32 }}>
+          <div
+            style={{
+              color: "#55e6ff",
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: 3,
+            }}
+          >
+            MAZESHIFT
+          </div>
+
           <h1
             style={{
-              margin: "14px 0 12px",
-              fontSize: "clamp(42px, 8vw, 64px)",
-              lineHeight: 1,
-              letterSpacing: -3,
+              margin: "10px 0 12px",
+              fontSize: "clamp(32px, 7vw, 44px)",
+              fontWeight: 800,
+              lineHeight: 1.1,
             }}
           >
             How to play
@@ -54,84 +76,75 @@ export function RulesScreen({ onBack, onStart }: Props) {
           <p
             style={{
               margin: 0,
-              maxWidth: 560,
-              color: "rgba(255,255,255,0.5)",
+              maxWidth: 480,
+              color: "rgba(255,255,255,0.55)",
+              fontSize: 13,
               lineHeight: 1.7,
             }}
           >
-            Navigate the path by moving between tiles and rotating the world
-            when necessary. Reach the flag to complete the level.
+            Move between tiles and rotate the world to change which paths
+            connect. Reach the flag to complete each level.
           </p>
         </div>
 
-        {/* Controls */}
-        <section
-          style={{
-            marginTop: 45,
-            padding: 24,
-            borderRadius: 14,
-            border: "1px solid rgba(255,255,255,0.1)",
-            background: "rgba(255,255,255,0.03)",
-          }}
-        >
-          <h2 style={{ margin: "0 0 22px", fontSize: 16 }}>Controls</h2>
-
+        <section style={{ marginTop: 32, ...cardStyle }}>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-              gap: 30,
+              gap: 28,
             }}
           >
-            <ControlGroup title="MOVE">
+            <ControlGroup label="Move" description="Move one tile at a time.">
               <Keys keys={["W", "A", "S", "D"]} />
-              <p>Move one tile at a time.</p>
             </ControlGroup>
 
-            <ControlGroup title="ROTATE">
+            <ControlGroup
+              label="Rotate"
+              description="Turn the world left or right."
+            >
               <Keys keys={["Q", "E"]} />
-              <p>Rotate the world left or right.</p>
             </ControlGroup>
           </div>
         </section>
 
-        {/* Rules */}
-        <section style={{ marginTop: 20 }}>
+        <section style={{ marginTop: 20, ...cardStyle, padding: "8px 28px" }}>
           <Rule
             number="01"
             title="Watch the bridges"
             description="Bridge tiles are only safe from specific orientations."
           />
-
           <Rule
             number="02"
             title="Rotate on safe ground"
             description="When possible, rotate while standing on a solid tile before crossing."
           />
-
           <Rule
             number="03"
             title="Reach the exit"
-            description="Find the correct route and make it to the green exit tile."
+            description="Find the right route and make it to the flag."
+            last
           />
         </section>
 
         <button
           onClick={onStart}
           style={{
-            marginTop: 35,
+            marginTop: 28,
             width: "100%",
             height: 54,
             border: "none",
-            borderRadius: 10,
+            borderRadius: 8,
             background: "#55e6ff",
-            color: "#071014",
+            color: "#141421",
+            fontFamily: "inherit",
             fontWeight: 800,
-            letterSpacing: 1.5,
+            fontSize: 14,
+            letterSpacing: 0.5,
             cursor: "pointer",
           }}
         >
-          START PLAYING →
+          Start playing
         </button>
       </div>
     </div>
@@ -139,49 +152,51 @@ export function RulesScreen({ onBack, onStart }: Props) {
 }
 
 function ControlGroup({
-  title,
+  label,
+  description,
   children,
 }: {
-  title: string;
-  children: React.ReactNode;
+  label: string;
+  description: string;
+  children: ReactNode;
 }) {
   return (
     <div>
-      <div
+      <div style={{ marginBottom: 12, fontSize: 13, fontWeight: 700 }}>
+        {label}
+      </div>
+      {children}
+      <p
         style={{
-          marginBottom: 12,
-          fontSize: 10,
-          fontWeight: 700,
-          letterSpacing: 3,
-          color: "rgba(255,255,255,0.3)",
+          margin: "10px 0 0",
+          fontSize: 12,
+          color: "rgba(255,255,255,0.4)",
         }}
       >
-        {title}
-      </div>
-
-      {children}
+        {description}
+      </p>
     </div>
   );
 }
 
 function Keys({ keys }: { keys: string[] }) {
   return (
-    <div style={{ display: "flex", gap: 7 }}>
+    <div style={{ display: "flex", gap: 6 }}>
       {keys.map((key) => (
         <div
           key={key}
           style={{
-            width: 38,
-            height: 38,
+            width: 34,
+            height: 34,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            borderRadius: 7,
-            border: "1px solid rgba(255,255,255,0.15)",
-            background: "rgba(255,255,255,0.06)",
-            fontFamily: "monospace",
+            borderRadius: 6,
+            border: "1px solid rgba(255,255,255,0.12)",
+            background: "rgba(255,255,255,0.04)",
+            fontFamily: "inherit",
             fontWeight: 700,
-            fontSize: 13,
+            fontSize: 12,
           }}
         >
           {key}
@@ -195,38 +210,41 @@ function Rule({
   number,
   title,
   description,
+  last,
 }: {
   number: string;
   title: string;
   description: string;
+  last?: boolean;
 }) {
   return (
     <div
       style={{
         display: "flex",
-        gap: 20,
-        padding: "22px 4px",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        gap: 18,
+        padding: "18px 0",
+        borderBottom: last ? "none" : "1px solid rgba(255,255,255,0.08)",
       }}
     >
       <div
         style={{
           color: "#55e6ff",
-          fontFamily: "monospace",
-          fontSize: 12,
-          paddingTop: 3,
+          fontSize: 11,
+          fontWeight: 700,
+          paddingTop: 2,
         }}
       >
         {number}
       </div>
 
       <div>
-        <div style={{ fontWeight: 700, marginBottom: 5 }}>{title}</div>
-
+        <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 4 }}>
+          {title}
+        </div>
         <div
           style={{
-            color: "rgba(255,255,255,0.4)",
-            fontSize: 13,
+            color: "rgba(255,255,255,0.45)",
+            fontSize: 12,
             lineHeight: 1.6,
           }}
         >
